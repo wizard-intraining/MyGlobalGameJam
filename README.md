@@ -1,5 +1,6 @@
 # MyGlobalGameJam
 
+直接打开index.html文件
 ##控制键
 上下左右移动，
 z键：切换演奏模式/行走模式，<br>
