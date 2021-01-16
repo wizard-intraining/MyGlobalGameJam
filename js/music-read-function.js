@@ -7,7 +7,7 @@ var curloc={
     x:1,
     y:1
 } 
-var level=1//当前关卡
+var level=0//当前关卡
 
 //第一个值代表map上的物品状态码
 // 第二个值代表方块右边的竖线
@@ -468,7 +468,7 @@ var story={
     '1':{
         title:'让我们荡起双桨',
         imgurl:'', //这个路径是相对于html的路径
-        text:'小明迷',
+        text:'人不能两次踏入同一条河',
         mapimgurl:'./src/pics/mapBackground/1.jpg'//这个路径是相对于html的路径
     },
     '2':{
