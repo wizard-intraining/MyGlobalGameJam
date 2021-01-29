@@ -8,7 +8,7 @@
     margin: 50px auto ;
     position: relative;
     border: 10px solid;
-    background-image: url("../src/pics/mapBackground/0.jpeg");
+    background-image: url("../src/pics/mapBackground/0.jpg");
     background-size: cover;
 }
 #player{
@@ -18,8 +18,9 @@
     top:50px;
     /* background-color:pink; */
     position: absolute;
-    background-color:transparent;
     background-image: url("../src/pics/player.png");
+    background-color:transparent;
+    background-size:cover;
 }
 #instruction{
     background-color: #abc;
