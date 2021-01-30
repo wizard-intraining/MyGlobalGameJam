@@ -4,6 +4,7 @@ scene = new Scene()
 ui.elements.mapcontainer.style.backgroundImage =
   `url('./src/pics/mapBackground/1.jpg')`
 Storyboard.show({
+  pic: './src/pics/storyImage/1.jpg',
   title: '第1/5关：心锁',
   content: '这旋律，这自然的律动，似乎有种魔力。<br>如果以正确的排列演奏，就有感化人心的效果。'
 })
@@ -48,7 +49,7 @@ Storyboard.show({
   [0, -1],/* [0, 0], */[0, 1],
   [1, -1], [1, 0], [1, 1]]
   aroundIndex.forEach(element => {
-    const [x, y] = [element[0] + 5, element[1] + 3]
+    const [x, y] = [element[0] + paperX, element[1] + paperY]
     if (x >= 1 && x <= scene.width &&
       y >= 1 && y <= scene.height)
       scene[x][y] = getPaper(false)
@@ -75,7 +76,8 @@ Storyboard.show({
     Hint.piano.low1,
     Hint.piano.low2,
     Hint.piano.low3,
-    Hint.piano.low4,]
+    Hint.piano.low4,
+  ]
   player.checkNoteList = function () {
     if (this.x === 12 &&
       this.y >= 7 && this.y <= 9) {
