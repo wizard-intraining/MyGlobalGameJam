@@ -4,7 +4,7 @@ scene = new Scene()
 ui.elements.mapcontainer.style.backgroundImage =
   `url('./src/pics/mapBackground/1.jpg')`
 Storyboard.show({
-  pic: './src/pics/storyImage/1.jpg',
+  pic: './src/pics/storyImage/1.gif',
   title: '第1/5关：心锁',
   content: '这旋律，这自然的律动，似乎有种魔力。<br>如果以正确的排列演奏，就有感化人心的效果。'
 })

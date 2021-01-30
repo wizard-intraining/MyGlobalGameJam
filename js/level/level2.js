@@ -4,7 +4,7 @@ scene = new Scene()
 ui.elements.mapcontainer.style.backgroundImage =
   `url('./src/pics/mapBackground/2.jpg')`
 Storyboard.show({
-  pic: './src/pics/storyImage/2.jpg',
+  pic: './src/pics/storyImage/2.gif',
   title: '第2/5关：陪伴',
   content: '过去的记忆在我眼前越来越清晰，<br>后来，我们一起去了舞会……'
 })

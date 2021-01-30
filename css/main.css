@@ -35,12 +35,12 @@
 #storyboard{
     background-color: #abc;
     width: 800px;
-    height: 400px;
+    height: 600px;
     position: fixed;
     margin: 0 auto ;
     right: 0;
     left: 0;
-    top: 150px;
+    top: 20px;
     border: 10px solid;
     visibility: visible;
     z-index: 1;
@@ -48,11 +48,11 @@
 }
 #storypic{
     width: 800px;
-    height: 200px;
+    height: 400px;
     margin: auto;
     /* left:200px; */
     /* position: absolute; */
-    background-color:transparent;
+    background-color:black;
 }
 #title{
     text-align: center;
