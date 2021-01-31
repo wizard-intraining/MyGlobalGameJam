@@ -1,0 +1,63 @@
+*{
+    background-color: #000;
+}
+#mapcontainer{
+    background-color: #883;
+    width: 1200px;
+    height: 600px;
+    margin: 50px auto ;
+    position: relative;
+    border: 10px solid;
+    background-image: url("../src/pics/mapBackground/0.jpg");
+    background-size: cover;
+}
+#player{
+    width: 50px;
+    height: 50px;
+    left: 50px;
+    top:50px;
+    /* background-color:pink; */
+    position: absolute;
+    background-image: url("../src/pics/player-walking.gif");
+    background-color:transparent;
+    background-size:cover;
+}
+#instruction{
+    background-color: #abc;
+    width: 200px;
+    height: 400px;
+    font-size: 10px;
+    position: fixed;
+    left: 0;
+    top: 50px;
+    border: 10px solid;
+}
+#storyboard{
+    background-color: #abc;
+    width: 800px;
+    height: 600px;
+    position: fixed;
+    margin: 0 auto ;
+    right: 0;
+    left: 0;
+    top: 20px;
+    border: 10px solid;
+    visibility: visible;
+    z-index: 1;
+    /* background-color:transparent; */
+}
+#storypic{
+    width: 800px;
+    height: 400px;
+    margin: auto;
+    /* left:200px; */
+    /* position: absolute; */
+    background-color:black;
+}
+#title{
+    text-align: center;
+    background-color:transparent;
+}
+#storycontent{
+    background-color:transparent;
+}
