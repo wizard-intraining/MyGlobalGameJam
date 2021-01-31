@@ -43,6 +43,7 @@ ui.elements.mapcontainer.appendChild(ui.level3.loverDiv)
   for (let j = 6; j <= 7; j++) mirrorInit(8, j)
   for (let i = 8; i <= 12; i++) mirrorInit(i, 7)
   scene[13][7] = path
+  
   // door
   const door = {
     __proto__: scene.defaultElement,
@@ -52,10 +53,16 @@ ui.elements.mapcontainer.appendChild(ui.level3.loverDiv)
   // paper
   scene.openDoorNoteList = [
     // 甜蜜蜜乐谱，仅修改此处可同时导致卷轴和开门判定发生变化
-    Hint.piano.low1,
-    Hint.piano.low2,
-    Hint.piano.low3,
-    Hint.piano.low4,
+    Hint.guitar.mid3,
+    Hint.guitar.mid5,
+    Hint.guitar.mid6,
+    Hint.guitar.mid3,
+    Hint.guitar.mid1,
+    Hint.guitar.mid2,
+    Hint.guitar.mid1,
+    Hint.guitar.mid2,
+    Hint.guitar.mid5,
+    Hint.guitar.mid3,
   ]
   const centerPaper = {
     __proto__: scene.defaultElement,
@@ -104,10 +111,10 @@ ui.elements.mapcontainer.appendChild(ui.level3.loverDiv)
     endMove: function () { },
   }
   const loverMoveMap = new Map()
-  loverMoveMap.set(Hint.violin.mid1, Orientation.UP)
+  loverMoveMap.set(Hint.violin.low2, Orientation.UP)
   loverMoveMap.set(Hint.violin.mid2, Orientation.DOWN)
-  loverMoveMap.set(Hint.violin.mid3, Orientation.LEFT)
-  loverMoveMap.set(Hint.violin.mid4, Orientation.RIGHT)
+  loverMoveMap.set(Hint.violin.mid1, Orientation.LEFT)
+  loverMoveMap.set(Hint.violin.mid3, Orientation.RIGHT)
   player.play = function () {
     Player.prototype.play.apply(this, arguments)
     const lastNote = this.noteList[this.noteList.length - 1]

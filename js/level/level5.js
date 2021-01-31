@@ -128,7 +128,34 @@ Storyboard.show({
   }
   player.endMove = function () {
     if (this.x === 24 && this.y === 12) {
-      Level.win()
+      Storyboard.show({
+        pic: './src/pics/storyImage/6.gif',
+        title: '离去',
+        content: `我也曾迷失在一段看得不是很清晰的迷宫里，
+                  也许人与人之间就是如此，
+                  如果把亲密关系的建立看作是关系的起点，那么每一次冷漠对待，都是在失去；
+                  但是如果陌生的彼此看作是关系的起点，那么每一次交流，都是在得到。`
+      })
+      setTimeout(Storyboard.hide,1900)
+      setTimeout(Storyboard.show,2000,{
+        pic: './src/pics/storyImage/6.gif',
+        title: '再见了',
+        content: `在千变万化的人生中，我们只能摸黑走路，一点点摸索正确的路，
+                   但是有什么是绝对正确的呢？
+                   失去自由，得到爱情；
+                   失去爱情，得到自由。`
+      })
+      setTimeout(Storyboard.hide,3900)
+      setTimeout(Storyboard.show,4000,{
+        pic: './src/pics/storyImage/logo.jpg',
+        title: '谢谢欣赏，游玩愉快',
+        content: `如果有什么是我们真正得到的，
+                  那一定是回忆，
+                  化作美妙的旋律，飘上云端，
+                  然后消散`
+      })
+      setTimeout(Level.win,5000)
+      
     }
   }
   player.valid = true
