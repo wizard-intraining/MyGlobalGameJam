@@ -87,14 +87,16 @@ Storyboard.show({
     hint: Hint.WATERWAVE,
     canStay: false
   }
-  for (let i = 0; i <= scene.width + 1; i++)
-    for (let j = 5; j <= scene.height + 1; j++)
+  for (let i = 1; i <= scene.width; i++)
+    for (let j = 5; j <= scene.height; j++)
       scene[i][j] = sea
   scene.goOnBoat = function () {
     sea.hint = Hint.BOATMOVE
     sea.canStay = true
-    player.moveTo({ x: 2, y: 6 })
+    delete wall.hint
     scene.defaultElement.canStay = false
+    Hint.BOATMOVE.play()
+    player.moveTo({ x: 2, y: 6 })
   }
   // port
   scene[2][5] = scene.defaultElement
