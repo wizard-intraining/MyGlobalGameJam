@@ -40,6 +40,18 @@ ui.level2.goblinDiv.style = `
 ui.elements.mapcontainer.appendChild(ui.level2.playerDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.loverDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.goblinDiv)
+// goblin
+{
+  let goblinGif=['./src/pics/figures/goblin-up.gif','./src/pics/figures/goblin-down.gif','./src/pics/figures/goblin-left.gif','./src/pics/figures/goblin-right.gif','./src/pics/goblin.png','./src/pics/goblin.png']
+  setInterval(goblinDance,)
+  function goblinDance(){
+    for(var i=0;i<5;i++){
+      setTimeout(function(){
+          console.log(i);
+      },1000*i);
+  }
+  }
+}
 // scene
 {
   scene = new Scene(Level.n)
