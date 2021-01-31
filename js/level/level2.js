@@ -7,7 +7,7 @@ Storyboard.show({
 // 新的 ui 元素加入到 ui.levelN 中
 ui.level2 = {
   playerDiv: document.createElement('div'),
-  loverDiv: document.createElement('div'),
+  loverDiv: document.createElement('img'),
   goblinDiv: document.createElement('img'),
 }
 ui.level2.playerDiv.style = `
@@ -25,7 +25,6 @@ ui.level2.loverDiv.style = `
   left: 700px;
   top: 50px;
   position: absolute;
-  background-image: url('./src/pics/lover.png');
   background-color: transparent;
   background-size: cover;`
 ui.level2.goblinDiv.style = `
@@ -39,11 +38,12 @@ ui.level2.goblinDiv.style = `
 ui.elements.mapcontainer.appendChild(ui.level2.playerDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.loverDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.goblinDiv)
+loverDiv.src='./src/pics/lover.png'
 ui.level2.goblinDance = (() => {
   const goblinGif = ['./src/pics/figures/goblin-up.gif', './src/pics/figures/goblin-down.gif', './src/pics/figures/goblin-left.gif', './src/pics/figures/goblin-right.gif', './src/pics/goblin.png', './src/pics/goblin.png']
-  return setInterval(() => {
+  return setInterval(function refresh(){
     for (let i = 0; i < 5; i++)
-      setTimeout(() => {
+      setTimeout(()=>{
         console.log(i)
         ui.level2.goblinDiv.src = ''
         ui.level2.goblinDiv.src = goblinGif[i]
@@ -51,6 +51,7 @@ ui.level2.goblinDance = (() => {
         // ui.level2.goblinDiv.style.backgroundImage =
         //   `url('${goblinGif[i]}')`
       }, 1000 * i)
+      return refresh
   }, 6000)
 })()
 // scene
@@ -173,9 +174,10 @@ ui.level2.goblinDance = (() => {
     // 当站在演奏台上时才播放动作
     if (this.x === stageX && this.y === stageY) {
       const lastNote = this.noteList[this.noteList.length - 1]
-      if (noteToDance.has(lastNote))
-        ui.level2.loverDiv.style.backgroundImage =
-          `url('${noteToDance.get(lastNote)}')`
+      if (noteToDance.has(lastNote)){
+        loverDiv.src=''
+        loverDiv.src = noteToDance.get(lastNote)
+    }
     }
   }
   player.endMove = function () {
