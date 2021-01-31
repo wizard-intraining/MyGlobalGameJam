@@ -13,7 +13,7 @@ Storyboard.show({
   content: `可是，为什么想到她会很痛苦，
   明明，都是美好的回忆，
   一点一点地，平息她的怒火，
-  一点一点地，直到无能为力，
+  一遍不行就再来一遍，直到无能为力，
   难道，我应该，离开了吗？`
 })
 
@@ -62,9 +62,12 @@ Storyboard.show({
     hint: Hint.FIREBURN,
     canStay: true
   }
-  for (let i = 1; i <= 3; i++) {
-    scene[13][6 + i] = door
+  for (let i = 1; i <= scene.width; i++) {
+    scene[5][i] = fire
+    scene[6][i] = fire
+    scene[7][i] = fire
   }
+  scene[6][scene.width]=null
   scene.fireDie = function () {
     scene[player.x-1][player.y]=null
     Hint.WATEROUT.play()
