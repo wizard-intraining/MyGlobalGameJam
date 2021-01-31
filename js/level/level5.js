@@ -24,16 +24,15 @@ Storyboard.show({
   // paper in wall
   scene.boatNoteList = [
     // 开船乐谱，仅修改此处可同时导致卷轴和判定发生变化
-    Hint.piano.low1,
-    // Hint.piano.low6,
-    // Hint.piano.mid1,
-    // Hint.piano.mid2,
-    // Hint.piano.mid3,
-    // Hint.piano.mid5,
-    // Hint.piano.mid3,
-    // Hint.piano.mid1,
-    // Hint.piano.mid2,
-    // Hint.piano.low6,
+    Hint.piano.low6,
+    Hint.piano.mid1,
+    Hint.piano.mid2,
+    Hint.piano.mid3,
+    Hint.piano.mid5,
+    Hint.piano.mid3,
+    Hint.piano.mid1,
+    Hint.piano.mid2,
+    Hint.piano.low6,
   ]
   scene.openDoorNoteList = [
     Hint.piano.low1,
