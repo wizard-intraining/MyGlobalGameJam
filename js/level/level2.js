@@ -66,7 +66,7 @@ ui.level2.goblinDance = (() => {
       hint: Hint.PAPER,
       interact: function () {
         [
-          Hint.violin.mid1,
+          Hint.violin.low2,
         ].forEach((h, i) => {
           setTimeout(() => h.play(), 800 * i)
         })
@@ -81,7 +81,7 @@ ui.level2.goblinDance = (() => {
       hint: Hint.PAPER,
       interact: function () {
         [
-          Hint.violin.mid2,
+          Hint.violin.mid1,
         ].forEach((h, i) => {
           setTimeout(() => h.play(), 800 * i)
         })
@@ -96,7 +96,7 @@ ui.level2.goblinDance = (() => {
       hint: Hint.PAPER,
       interact: function () {
         [
-          Hint.violin.mid3,
+          Hint.violin.mid2,
         ].forEach((h, i) => {
           setTimeout(() => h.play(), 800 * i)
         })
@@ -111,7 +111,7 @@ ui.level2.goblinDance = (() => {
       hint: Hint.PAPER,
       interact: function () {
         [
-          Hint.violin.mid4,
+          Hint.violin.mid3,
         ].forEach((h, i) => {
           setTimeout(() => h.play(), 800 * i)
         })
