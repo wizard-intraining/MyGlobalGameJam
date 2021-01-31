@@ -7,7 +7,7 @@ Storyboard.show({
 // scene
 {
   scene = new Scene(Level.n)
-  //wall
+  // wall
   const wall = {
     __proto__: scene.defaultElement,
     hint: Hint.NORMALBUMP,
@@ -21,23 +21,34 @@ Storyboard.show({
     scene[0][i] = wall // 左边
     scene[scene.width + 1][i] = wall // 右边
   }
-  // paper
-  scene.fireDieList = [
-    // 灭火乐谱，仅修改此处可同时导致卷轴和判定发生变化
-    Hint.piano.low4,
-    Hint.piano.low3,
-    Hint.piano.low2,
+  // paper in wall
+  scene.boatNoteList = [
+    // 开船乐谱，仅修改此处可同时导致卷轴和判定发生变化
     Hint.piano.low1,
+    // Hint.piano.low6,
+    // Hint.piano.mid1,
+    // Hint.piano.mid2,
+    // Hint.piano.mid3,
+    // Hint.piano.mid5,
+    // Hint.piano.mid3,
+    // Hint.piano.mid1,
+    // Hint.piano.mid2,
+    // Hint.piano.low6,
   ]
+  scene.openDoorNoteList = [
+    Hint.piano.low1,
+    Hint.piano.low2,
+    Hint.piano.low3,
+    Hint.piano.low4,
+  ]
+  const [paperX, paperY] = [18, 2]
   const centerPaper = {
     __proto__: scene.defaultElement,
-    hint: Hint.PAPER,
+    hint: Hint.NORMALBUMP,
+    canStay: false,
     interact: function () {
-      scene.fireDieList.forEach((h, i) => {
+      scene.boatNoteList.forEach((h, i) => {
         setTimeout(() => h.play(), 800 * i)
-      })
-      Storyboard.show({
-        content: '一点一点地，平息她的怒火，<br>一遍不行就再来一遍，直到无能为力'
       })
     },
   }
@@ -45,105 +56,78 @@ Storyboard.show({
     __proto__: scene.defaultElement,
     hint: Hint.PAPERWEAK,
   }
-  scene[scene.width][5] = aroundPaper
-  scene[scene.width][6] = centerPaper // 卷轴在这里
-  scene[scene.width][7] = aroundPaper
-  //fire
-  scene.fire = {
+  const aroundIndex = [
+    [-1, -1], [-1, 0], [-1, 1],
+    [0, -1],/* [0, 0], */[0, 1],
+    [1, -1], [1, 0], [1, 1],
+  ]
+  scene[paperX][paperY] = centerPaper // 卷轴在这里
+  aroundIndex.forEach(element => {
+    const [x, y] = [element[0] + paperX, element[1] + paperY]
+    if (x >= 1 && x <= scene.width &&
+      y >= 1 && y <= scene.height)
+      scene[x][y] = aroundPaper
+  })
+  // door
+  const [doorX, doorY] = [17, 2]
+  const door = {
     __proto__: scene.defaultElement,
-    hint: Hint.FIREBURN,
+    hint: Hint.DOORBUMP,
+    canStay: false
   }
-  scene.fireWeak = {
+  scene[doorX][doorY] = door
+  scene.doorOpen = function () {
+    scene[paperX][paperY].hint = Hint.PAPER
+    scene[paperX][paperY].canStay = true
+    scene[doorX][doorY] = aroundPaper
+    Hint.DOOROPEN.play()
+  }
+  // sea
+  const sea = {
     __proto__: scene.defaultElement,
-    hint: Hint.FIREBURN,
+    hint: Hint.WATERWAVE,
+    canStay: false
   }
-  scene.fireAlways = {
-    __proto__: scene.defaultElement,
-    hint: Hint.FIREBURN,
+  for (let i = 0; i <= scene.width + 1; i++)
+    for (let j = 5; j <= scene.height + 1; j++)
+      scene[i][j] = sea
+  scene.goOnBoat = function () {
+    sea.hint = Hint.BOATMOVE
+    sea.canStay = true
+    player.moveTo({ x: 2, y: 6 })
+    scene.defaultElement.canStay = false
   }
-  for (let i = 1; i <= 2; i++) {
-    scene[i][5] = scene.fireAlways
-    scene[i][6] = scene.fireAlways
-    scene[i][7] = scene.fireAlways
-  }
-  for (let i = 3; i <= 11; i++) {
-    scene[i][5] = scene.fire
-    scene[i][6] = scene.fire
-    scene[i][7] = scene.fire
-  }
-  for (let i = 12; i <= scene.width - 1; i++) {
-    scene[i][5] = scene.fireWeak
-    scene[i][6] = scene.fireWeak
-    scene[i][7] = scene.fireWeak
-  }
-  scene.fireDie = function (f) {
-    delete f.hint
-    Hint.WATEROUT.play()
-    if (f === this.fireWeak) {
-      player.lover.x = 10
-      // 这部分卷轴被火挡住了
-      scene[scene.width - 1][5] = aroundPaper
-      scene[scene.width - 1][6] = aroundPaper
-      scene[scene.width - 1][7] = aroundPaper
-    }
-    else if (f === this.fire)
-      player.lover.x = 1
-  }
+  // port
+  scene[2][5] = scene.defaultElement
   scene.valid = true
 }
 // player
 {
-  player = new Player(scene.width, 6)
-  player.lover = {
-    _x: scene.width - 2, // 开始就隔一道火
-    _y: 6,
-    get x() { return this._x },
-    set x(value) {
-      this._x = value
-      ui.level4.loverDiv.style.left = `${(value - 1) * 50}px`
-    },
-    get y() { return this._y },
-    set y(value) {
-      this._y = value
-      ui.level4.loverDiv.style.top = `${(value - 1) * 50}px`
-    },
-  }
+  player = new Player(2, 5)
   player.checkNoteList = function () {
-    if (scene[this.x][this.y] === scene.fireWeak) {
-      console.log('fireWeak')
-      if (this.noteList.length === scene.fireDieList.length) {
+    if (this.x === 16 && this.y === 2 ||
+      this.x === 17 && this.y === 1 ||
+      this.x === 17 && this.y === 3) {
+      if (this.noteList.length === scene.openDoorNoteList.length) {
         for (let i = 0; i < this.noteList.length; i++) {
-          if (this.noteList[i] !== scene.fireDieList[i])
+          if (this.noteList[i] !== scene.openDoorNoteList[i])
             return
         }
-        scene.fireDie(scene.fireWeak)
+        scene.doorOpen()
       }
-    } else if (scene[this.x][this.y] === scene.fire) {
-      console.log('fire')
-      if (this.noteList.length === 2 * scene.fireDieList.length) {
-        for (let i = 0; i < scene.fireDieList.length; i++) {
-          if (this.noteList[i] !== scene.fireDieList[i])
+    } else if (this.x === 2 && this.y === 5) {
+      if (this.noteList.length === scene.boatNoteList.length) {
+        for (let i = 0; i < this.noteList.length; i++) {
+          if (this.noteList[i] !== scene.boatNoteList[i])
             return
         }
-        for (let i = 0; i < scene.fireDieList.length; i++) {
-          if (this.noteList[i + scene.fireDieList.length] !== scene.fireDieList[i])
-            return
-        }
-        scene.fireDie(scene.fire)
+        scene.goOnBoat()
       }
     }
   }
-  const dispose = () => {
-    for (const element in ui.level4)
-      ui.level4[element].remove()
-  }
   player.endMove = function () {
-    //lover的位移：到顶后不能再被浇灭火
-    if (this.x === this.lover.x && this.y === this.lover.y) {
-      Level.lose(dispose)
-    } else if (this.lover.x === 1 &&
-      this.x === scene.width && this.y === 6) {
-      Level.win(dispose)
+    if (this.x === 24 && this.y === 12) {
+      Level.win()
     }
   }
   player.valid = true
