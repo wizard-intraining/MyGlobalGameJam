@@ -38,12 +38,12 @@ ui.level2.goblinDiv.style = `
 ui.elements.mapcontainer.appendChild(ui.level2.playerDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.loverDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.goblinDiv)
-loverDiv.src='./src/pics/lover.png'
+ui.level2.loverDiv.src = './src/pics/lover.png'
 ui.level2.goblinDance = (() => {
   const goblinGif = ['./src/pics/figures/goblin-up.gif', './src/pics/figures/goblin-down.gif', './src/pics/figures/goblin-left.gif', './src/pics/figures/goblin-right.gif', './src/pics/goblin.png', './src/pics/goblin.png']
-  return setInterval(function refresh(){
+  const showGoblin = () => {
     for (let i = 0; i < 5; i++)
-      setTimeout(()=>{
+      setTimeout(() => {
         console.log(i)
         ui.level2.goblinDiv.src = ''
         ui.level2.goblinDiv.src = goblinGif[i]
@@ -51,8 +51,9 @@ ui.level2.goblinDance = (() => {
         // ui.level2.goblinDiv.style.backgroundImage =
         //   `url('${goblinGif[i]}')`
       }, 1000 * i)
-      return refresh
-  }, 6000)
+  }
+  showGoblin()
+  return setInterval(showGoblin, 6000)
 })()
 // scene
 {
@@ -161,23 +162,23 @@ ui.level2.goblinDance = (() => {
   player = new Player(stageX, stageY)
   const noteToDance = new Map()
   // 音符与恋人动作的对应关系
-  noteToDance.set(Hint.violin.mid1,
+  noteToDance.set(Hint.violin.low2,
     './src/pics/figures/lover-upDance.gif')
   noteToDance.set(Hint.violin.mid2,
     './src/pics/figures/lover-downDance.gif')
-  noteToDance.set(Hint.violin.mid3,
+  noteToDance.set(Hint.violin.mid1,
     './src/pics/figures/lover-leftDance.gif')
-  noteToDance.set(Hint.violin.mid4,
+  noteToDance.set(Hint.violin.mid3,
     './src/pics/figures/lover-rightDance.gif')
   player.play = function () {
     Player.prototype.play.apply(this, arguments)
     // 当站在演奏台上时才播放动作
     if (this.x === stageX && this.y === stageY) {
       const lastNote = this.noteList[this.noteList.length - 1]
-      if (noteToDance.has(lastNote)){
-        loverDiv.src=''
-        loverDiv.src = noteToDance.get(lastNote)
-    }
+      if (noteToDance.has(lastNote)) {
+        ui.level2.loverDiv.src = ''
+        ui.level2.loverDiv.src = noteToDance.get(lastNote)
+      }
     }
   }
   player.endMove = function () {
@@ -185,16 +186,28 @@ ui.level2.goblinDance = (() => {
     ui.level2.goblinDiv.hidden =
       !(this.x === stageX && this.y === stageY)
   }
+  const goblinNoteList = [
+    Hint.violin.low2,
+    Hint.violin.mid2,
+    Hint.violin.mid1,
+    Hint.violin.mid3,
+  ]
   player.checkNoteList = function () {
     if (this.x === stageX && this.y === stageY) {
       console.log('检查第二关弹奏的音符')
-      ui.level2.loverDiv.style.backgroundImage =
-        `url('./src/pics/lover.png')`
-      Level.win(() => {
-        clearInterval(ui.level2.goblinDance)
-        delete ui.level2.goblinDance
-        for (const element in ui.level2) ui.level2[element].remove()
-      })
+      if (this.noteList.length === goblinNoteList.length) {
+        for (let i = 0; i < this.noteList.length; i++) {
+          if (this.noteList[i] !== goblinNoteList[i])
+            return
+        }
+        Level.win(() => {
+          clearInterval(ui.level2.goblinDance)
+          delete ui.level2.goblinDance
+          for (const element in ui.level2) ui.level2[element].remove()
+        })
+        return
+      }
+      ui.level2.loverDiv.src = './src/pics/lover.png'
     }
   }
   player.valid = true
