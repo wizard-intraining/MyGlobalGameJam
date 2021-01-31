@@ -48,15 +48,18 @@ ui.elements.mapcontainer.appendChild(ui.level4.loverDiv)
       scene.fireDieList.forEach((h, i) => {
         setTimeout(() => h.play(), 800 * i)
       })
+      Storyboard.show({
+        content: '一点一点地，平息她的怒火，<br>一遍不行就再来一遍，直到无能为力'
+      })
     },
   }
   const aroundPaper = {
     __proto__: scene.defaultElement,
     hint: Hint.PAPERWEAK,
   }
-  scene[scene.width][4] = aroundPaper
-  scene[scene.width][5] = centerPaper // 卷轴在这里
-  scene[scene.width][6] = aroundPaper
+  scene[scene.width][5] = aroundPaper
+  scene[scene.width][6] = centerPaper // 卷轴在这里
+  scene[scene.width][7] = aroundPaper
   //fire
   scene.fire = {
     __proto__: scene.defaultElement,
@@ -91,9 +94,9 @@ ui.elements.mapcontainer.appendChild(ui.level4.loverDiv)
     if (f === this.fireWeak) {
       player.lover.x = 10
       // 这部分卷轴被火挡住了
-      scene[scene.width - 1][4] = aroundPaper
       scene[scene.width - 1][5] = aroundPaper
       scene[scene.width - 1][6] = aroundPaper
+      scene[scene.width - 1][7] = aroundPaper
     }
     else if (f === this.fire)
       player.lover.x = 1

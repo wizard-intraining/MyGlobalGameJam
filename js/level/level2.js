@@ -8,7 +8,7 @@ Storyboard.show({
 ui.level2 = {
   playerDiv: document.createElement('div'),
   loverDiv: document.createElement('div'),
-  goblinDiv: document.createElement('div'),
+  goblinDiv: document.createElement('img'),
 }
 ui.level2.playerDiv.style = `
   width: 350px;
@@ -34,24 +34,25 @@ ui.level2.goblinDiv.style = `
   left: 500px;
   top: 150px;
   position: absolute;
-  background-image: url('./src/pics/goblin.gif');
   background-color: transparent;
   background-size: cover;`
 ui.elements.mapcontainer.appendChild(ui.level2.playerDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.loverDiv)
 ui.elements.mapcontainer.appendChild(ui.level2.goblinDiv)
-// goblin
-{
-  let goblinGif=['./src/pics/figures/goblin-up.gif','./src/pics/figures/goblin-down.gif','./src/pics/figures/goblin-left.gif','./src/pics/figures/goblin-right.gif','./src/pics/goblin.png','./src/pics/goblin.png']
-  setInterval(goblinDance,)
-  function goblinDance(){
-    for(var i=0;i<5;i++){
-      setTimeout(function(){
-          console.log(i);
-      },1000*i);
-  }
-  }
-}
+ui.level2.goblinDance = (() => {
+  const goblinGif = ['./src/pics/figures/goblin-up.gif', './src/pics/figures/goblin-down.gif', './src/pics/figures/goblin-left.gif', './src/pics/figures/goblin-right.gif', './src/pics/goblin.png', './src/pics/goblin.png']
+  return setInterval(() => {
+    for (let i = 0; i < 5; i++)
+      setTimeout(() => {
+        console.log(i)
+        ui.level2.goblinDiv.src = ''
+        ui.level2.goblinDiv.src = goblinGif[i]
+        // ui.level2.goblinDiv.style.backgroundImage = ''
+        // ui.level2.goblinDiv.style.backgroundImage =
+        //   `url('${goblinGif[i]}')`
+      }, 1000 * i)
+  }, 6000)
+})()
 // scene
 {
   scene = new Scene(Level.n)
@@ -188,6 +189,8 @@ ui.elements.mapcontainer.appendChild(ui.level2.goblinDiv)
       ui.level2.loverDiv.style.backgroundImage =
         `url('./src/pics/lover.png')`
       Level.win(() => {
+        clearInterval(ui.level2.goblinDance)
+        delete ui.level2.goblinDance
         for (const element in ui.level2) ui.level2[element].remove()
       })
     }
